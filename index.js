@@ -49,7 +49,7 @@ async function run() {
             const options = { upsert: true };
             const updatedDoc = {
                 $set: {
-                    quantity: updatedQuantity
+                    quantity: updatedQuantity.quantity
                 }
             };
             const result = await itemCollection.updateOne(filter, updatedDoc, options);
@@ -74,6 +74,7 @@ async function run() {
         // DELETE
         app.delete('/item/:id', async (req, res) => {
             const id = req.params.id;
+            console.log(id);
             const query = { _id: ObjectId(id) };
             const result = await itemCollection.deleteOne(query);
             res.send(result);
