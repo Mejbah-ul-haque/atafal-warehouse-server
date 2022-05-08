@@ -5,11 +5,9 @@ require('dotenv').config();
 const port = process.env.PORT || 5000;
 const app = express();
 
-
 // Use Middleware
 app.use(cors());
 app.use(express.json());
-
 
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.ttaom.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
@@ -55,21 +53,6 @@ async function run() {
             const result = await itemCollection.updateOne(filter, updatedDoc, options);
             res.send(result);
         })
-        // Delivered
-        // app.put('/inventory/:id', async (req, res) => {
-        //     const id = req.params.id;
-        //     const updatedItem = req.body;
-        //     const { count } = updatedItem;
-        //     const filter = { _id: ObjectId(id) };
-        //     const options = { upsert: true };
-        //     const updateItem = {
-        //         $set: {
-        //             quantity: count.quantity
-        //         }
-        //     };
-        //     const result = await itemCollection.updateOne(filter, updateItem, options);
-        //     res.send(result);
-        // })
 
         // DELETE
         app.delete('/item/:id', async (req, res) => {
@@ -79,17 +62,12 @@ async function run() {
             const result = await itemCollection.deleteOne(query);
             res.send(result);
         });
-
     }
     finally {
-
     }
 }
 
 run().catch(console.dir);
-
-
-
 
 app.get('/', (req, res) => {
     res.send('Running Atafal Warehouse Server ');
