@@ -39,7 +39,7 @@ async function run() {
             res.send(result);
         });
 
-        // update items quantity (Restock)
+        // update items quantity or Restock
         app.put('/item/:id', async (req, res) => {
             const id = req.params.id;
             const updatedQuantity = req.body;
